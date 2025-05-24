@@ -19,4 +19,4 @@ EXPOSE 5000
 # Define the command to run the Flask application using Gunicorn (production-ready WSGI server)
 # Gunicorn is preferred over Flask's built-in server for production
 # We bind it to 0.0.0.0 to make it accessible within the Docker network
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--timeout", "60", "app:app"]
