@@ -1,0 +1,24 @@
+version: '3.8' # Specify Docker Compose file format version
+
+services:
+  backend:
+    build: ./backend # Build the backend image from the ./backend directory
+    container_name: flask_backend_app # Assign a custom name to the backend container
+    ports:
+      - "5000:5000" # Map host port 5000 to container port 5000
+    networks:
+      - app_network # Connect to our custom network
+
+  frontend:
+    build: ./frontend # Build the frontend image from the ./frontend directory
+    container_name: static_frontend_app # Assign a custom name to the frontend container
+    ports:
+      - "80:80" # Map host port 80 to container port 80 (standard HTTP)
+    depends_on:
+      - backend # Ensure backend starts before frontend (optional, but good practice)
+    networks:
+      - app_network # Connect to our custom network
+
+networks:
+  app_network: # Define a custom network for our services
+    driver: bridge
